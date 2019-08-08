@@ -1,0 +1,27 @@
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [email]
+            message: 'This email is already taken by someone'
+    properties:
+        username:
+            - NotBlank:
+                message: 'User name is required'
+            - Length:
+                min: 3
+                max: 50
+                minMessage: 'Your user name must be at least {{ limit }} characters long'
+                maxMessage: 'Your user name cannot be longer than {{ limit }} characters'
+        email:
+            - Email:
+                message: 'The email you entered is not a valid email'
+            - NotBlank:
+                message: 'Email id is required'          
+        password: 
+            - NotBlank:
+                message: 'Password is required'
+            - Length:
+                min: 6
+                max: 15
+                minMessage: 'Your password must be at least {{ limit }} characters long'
+                maxMessage: 'Your password cannot be longer than {{ limit }} characters'

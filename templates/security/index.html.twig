@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} User Signup or Login{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-md-6 col-6">
+            <div class="card">
+                <div class="card-body">
+                        {% if errors %}                           
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for error in errors %}
+                                <li>
+                                    {{ error.message }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {{ form_start(form, {'action': path('register'), 'method': 'POST', 'attr': {'novalidate': 'novalidate'} }) }} 
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <h3>Register</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                 {{ form_label(form.username) }}
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                     {{ form_widget(form.username) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                {{ form_label(form.email) }}
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    {{ form_widget(form.email) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                {{ form_label(form.password.first) }}
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    {{ form_widget(form.password.first) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                {{ form_label(form.password.second) }}
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                     {{ form_widget(form.password.second) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.save) }}
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        </div>
+        <div class="col-md-6 col-6">
+            <div class="card">
+                <div class="card-body">
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <form action="{{ path('login') }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <h3>Login</h3>
+                            </div>
+                        </div>
+                        <div class="row">                
+                            <div class="col-lg-5">
+                                <label for="username">Email:</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <input type="text" id="username" name="_username" value="{{ last_username }}" class='form-control'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <label for="password">Password:</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <input type="password" id="password" name="_password" class='form-control'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"> 
+                         <div class="col-lg-6">
+                            <div class="form-group" style="min-height: 148px;">
+                                <button type="submit" class="btn btn-primary">login</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>   
+</div>
+{% endblock %}

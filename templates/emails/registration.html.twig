@@ -1,0 +1,8 @@
+{# templates/emails/registration.html.twig #}
+<h3>Welcome</h3>
+
+Hi {{ username }}! You're successfully registered with us .
+
+Your account is still inactive, to make it active please click on the following link  <br /><a href="{{ url('activate_link', { 'user_encrypted_id': userid }) }}">Click here</a> to active
+
+Thanks! 
